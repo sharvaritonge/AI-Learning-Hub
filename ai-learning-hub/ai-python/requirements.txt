@@ -1,4 +1,19 @@
+# --- Web Framework ---
 flask
+flask-cors
+
+# --- AI / NLP ---
 transformers==4.40.0
 torch
+
+# --- Text Handling ---
+regex
+# difflib is part of Python standard library (no need to install)
+
+# --- API & Requests ---
+requests
 youtube-transcript-api
+
+# --- Database ---
+pymongo
+# sqlite3 comes built-in with Python (no need to install separately)

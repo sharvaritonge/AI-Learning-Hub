@@ -1,4 +1,4 @@
-# AI Learning Hub - VS Code Ready Project
+# AI Learning Hub 
 This project is a simple scaffold for the "AI Learning Hub" (SkillSnap + Visual Assistant).
 It includes a Python AI microservice (HuggingFace), a Node backend (Mongo + SQLite),
 and a simple frontend (HTML/CSS/JS).

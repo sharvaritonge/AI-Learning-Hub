@@ -1,0 +1,105 @@
+body { 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fbf9e4;
+  color: #000000;
+}
+
+header {
+  background: #122c4f;
+  color: #fbf9e4;
+  padding: 20px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Section titles */
+h2 {
+  color: #122c4f;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Textarea */
+textarea {
+  width: 100%;
+  height: 120px;
+  border: 2px solid #122c4f;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  resize: vertical;
+  transition: 0.3s;
+}
+
+textarea:focus {
+  border-color: #000000;
+  box-shadow: 0 0 6px rgba(18, 44, 79, 0.7);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #122c4f;
+  color: #fbf9e4;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #000000;
+  transform: translateY(-2px);
+}
+
+/* Output sections */
+.output {
+  margin-top: 20px;
+  padding: 15px;
+  background: #fbf9e4;
+  border-radius: 8px;
+  border: 2px solid #122c4f;
+  white-space: pre-wrap;
+}
+
+/* Output section titles */
+.section-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #122c4f;
+  font-weight: bold;
+}
+
+/* Questions list */
+.question-list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+/* Flashcards */
+.flashcard {
+  background: #e0e4f1;
+  border-left: 5px solid #122c4f;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+}

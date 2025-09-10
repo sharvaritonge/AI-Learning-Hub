@@ -1,0 +1,112 @@
+<!doctype html>  
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>AI Learning Hub</title>
+  <link rel="stylesheet" href="app.css" />
+  <style>
+    .flashcard { 
+      background: #e0e4f1;
+      border-left: 5px solid #122c4f;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+    .flashcard .answer {
+      display: none;
+      margin-top: 5px;
+      padding: 8px;
+      background: #fff;
+      border-left: 3px solid #122c4f;
+      border-radius: 4px;
+    }
+    .flashcard .toggle-btn {
+      cursor: pointer;
+      color: #122c4f;
+      font-weight: bold;
+    }
+    .section-title { font-weight: bold; margin-bottom: 5px; }
+    .question-list li { margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <header>AI Learning Hub</header>
+
+  <div class="container">
+    <h2>Analyze Text</h2>
+    <textarea id="text" placeholder="Paste text here"></textarea>
+    <button class="btn" id="process">Process Text</button>
+    <button class="btn" id="processFlashcards">Generate Flashcards</button>
+
+    <div id="summaryBox" class="output" style="display:none;"></div>
+    <div id="questionsBox" class="output" style="display:none;"></div>
+    <div id="flashcardsBox" class="output" style="display:none;"></div>
+  </div>
+
+  <script>
+    async function fetchAPI(url, text) {
+        const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text })
+        });
+        return await res.json();
+    }
+
+    function showSummary(summary) {
+        const box = document.getElementById("summaryBox");
+        box.style.display = "block";
+        box.innerHTML = `<div class="section-title">Summary</div>${summary || "No summary"}`;
+    }
+
+    function showQuestions(questions) {
+        const box = document.getElementById("questionsBox");
+        box.style.display = "block";
+        if (questions.length) {
+            box.innerHTML = `<div class="section-title">Questions</div>
+                <ul class="question-list">${questions.map(q => `<li>${q}</li>`).join("")}</ul>`;
+        } else box.innerHTML = `<div class="section-title">Questions</div><p>No questions generated</p>`;
+    }
+
+    function showFlashcards(flashcards) {
+        const box = document.getElementById("flashcardsBox");
+        box.style.display = "block";
+
+        if (flashcards.length) {
+            box.innerHTML = `<div class="section-title">Flashcards</div>` +
+                flashcards.map(fc => `
+                    <div class="flashcard">
+                        <div class="toggle-btn">Q: ${fc.question}</div>
+                        <div class="answer">${fc.answer}</div>
+                    </div>`).join("");
+
+            document.querySelectorAll(".flashcard .toggle-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const ans = btn.nextElementSibling;
+                    ans.style.display = ans.style.display === "block" ? "none" : "block";
+                });
+            });
+        } else {
+            box.innerHTML = `<div class="section-title">Flashcards</div><p>No flashcards generated</p>`;
+        }
+    }
+
+    document.getElementById("process").addEventListener("click", async () => {
+        const text = document.getElementById("text").value.trim();
+        if (!text) return alert("Enter text first!");
+        const data = await fetchAPI("http://127.0.0.1:5001/api/text", text);
+        if (data.error) return alert(data.error);
+        showSummary(data.summary);
+        showQuestions(data.questions);
+    });
+
+    document.getElementById("processFlashcards").addEventListener("click", async () => {
+        const text = document.getElementById("text").value.trim();
+        if (!text) return alert("Enter text first!");
+        const data = await fetchAPI("http://127.0.0.1:5001/api/flashcards", text);
+        if (data.error) return alert(data.error);
+        showFlashcards(data.flashcards);
+    });
+  </script>
+</body>
+</html>
